@@ -69,3 +69,73 @@ export function render(element: React.ReactElement) {
   ));
 }
 ```
+
+## Types
+
+기본적인 타입을 준비한다. 특별한 경우가 아니라면 미리 정한 용어집과 REST API 스펙에 맞추게 된다.
+
+```js
+export type Category = {
+  id: string;
+  name: string;
+}
+
+export type Image = {
+  url: string;
+}
+
+export type ProductSummary = {
+  id: string;
+  category: Category;
+  thumbnail: Image;
+  name: string;
+  price: number;
+}
+
+export type ProductOptionItem = {
+  id: string;
+  name: string;
+};
+
+export type ProductOption = {
+  id: string;
+  name: string;
+  items: ProductOptionItem[];
+};
+
+export type ProductDetail = {
+  id: string;
+  category: Category;
+  images: Image[];
+  name: string;
+  price: number;
+  options: ProductOption[];
+  description: string;
+}
+
+export type OrderOptionItem = {
+  name: string;
+};
+
+export type OrderOption = {
+  name: string;
+  item: OrderOptionItem;
+};
+
+export type LineItem = {
+  id: string;
+  product: {
+    id: string;
+    name: string;
+  };
+  options: OrderOption[];
+  unitPrice: number;
+  quantity: number;
+  totalPrice: number;
+}
+
+export type Cart = {
+  lineItems: LineItem[];
+  totalPrice: number;
+}
+```
