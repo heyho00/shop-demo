@@ -41,3 +41,31 @@
 8. [usestore-ts](https://github.com/seed2whale/usestore-ts)
 9. [jest-dom](https://github.com/testing-library/jest-dom): React Testing Library에서 활용할 수 있는 DOM 확인용 Matcher 모음.
 10. [MSW](https://github.com/mswjs/msw)
+
+## styled-components, routes 준비
+
+## Test Helper
+
+테스트 코드에서 styled-components의 `Theme`과 React Router의 `Link` 등을 사용할 때 문제가 발생하지 않도록, React Testing Library의 render를 한번 감싼 테스트용 헬퍼 함수를 준비.
+
+```tsx
+import { render as originalRender } from '@testing-library/react';
+
+import React from 'react';
+
+import { MemoryRouter } from 'react-router-dom';
+
+import { ThemeProvider } from 'styled-components';
+
+import defaultTheme from './styles/defaultTheme';
+
+export function render(element: React.ReactElement) {
+  return originalRender((
+    <MemoryRouter initialEntries={['/']}>
+      <ThemeProvider theme={defaultTheme}>
+        {element}
+      </ThemeProvider>
+    </MemoryRouter>
+  ));
+}
+```
