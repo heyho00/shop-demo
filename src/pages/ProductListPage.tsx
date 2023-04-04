@@ -1,10 +1,13 @@
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import Products from '../components/product-list/Products'
+import useFetchProducts from '../hooks/useFetchProducts'
 
 export default function ProductListpage() {
-  // const navigate = useNavigate();
+  const {products} = useFetchProducts()
 
   return (
-   <div>ProductList Page</div>
+   <div>
+    <h2>Products</h2>
+    <Products products={products} />
+   </div>
   );
 }
