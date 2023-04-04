@@ -17,7 +17,7 @@ export const config = {
     }
   },
   include: {
-    I: './tests/steps_file.js',
+    I: './tests/steps_file.ts',
   },
   name: 'shop-demo'
 }

@@ -19,28 +19,13 @@ describe('routes', () => {
   }
 
   context('when the current path is “/”', () => {
-    it('renders the intro page', () => {
+    it('renders the intro page', async () => {
       renderRouter('/');
 
-    //   screen.getByText(/원하시는 주문을 터치해주세요/);
+      await waitFor(()=>{
+        screen.getByText(/top/);
+      })
     });
   });
 
-  context('when the current path is “/order”', () => {
-    it('renders the order page', () => {
-      renderRouter('/order');
-
-    //   screen.getByText(/메가테라 푸드코트 키오스크/);
-    });
-  });
-
-  context('when the current path is “/order/complete”', () => {
-    it('renders the order result page', async () => {
-      renderRouter('/order/complete?orderId="ID"');
-
-    //   await waitFor(() => {
-    //     screen.getByText(/주문이 완료되었습니다!/);
-    //   });
-    });
-  });
 });
