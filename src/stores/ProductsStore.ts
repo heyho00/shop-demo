@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import { singleton } from "tsyringe";
 import { ProductSummary } from "../types";
 import { Action, Store } from "usestore-ts";

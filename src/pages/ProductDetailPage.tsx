@@ -1,10 +1,27 @@
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import { useParams } from "react-router-dom";
+import useFetchProduct from "../hooks/useFetchProduct";
+import ProductDetail from "../components/product-detail/ProductDetail";
 
-export default function ProductDetail() {
-  // const navigate = useNavigate();
+export default function ProductDetailPage() {
+  const params = useParams();
+
+  const { loading, error } = useFetchProduct({
+    productId: String(params.id),
+  });
+
+  if (loading) {
+    return (
+      <p>Loading...</p>
+    );
+  }
+
+  if (error) {
+    return (
+      <p>Error!</p>
+    );
+  }
 
   return (
-   <div>ProductDetail Page</div>
+    <ProductDetail />
   );
 }
