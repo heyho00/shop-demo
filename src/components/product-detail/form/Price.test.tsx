@@ -7,13 +7,13 @@ import ProductFormStore from "../../../stores/ProductFormStore";
 import numberFormat from "../../../utils/numberFormat";
 
 const [product] = fixtures.products;
-const { options } = product;
+// const { options } = product;
 
-jest.mock("../../../hooks/useProductDetailStore", () => () => [
-  {
-    product,
-  },
-]);
+// jest.mock("../../../hooks/useProductDetailStore", () => () => [
+//   {
+//     product,
+//   },
+// ]);
 
 // jest.mock("../../../hooks/useProductFormStore", () => () => [
 //   {
@@ -28,6 +28,7 @@ describe("Price", () => {
 
   beforeEach(() => {
     const productFormStore = container.resolve(ProductFormStore);
+    productFormStore.setProduct(product);
     productFormStore.changeQuantity(quantity);
   });
 
