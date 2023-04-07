@@ -49,24 +49,22 @@
 테스트 코드에서 styled-components의 `Theme`과 React Router의 `Link` 등을 사용할 때 문제가 발생하지 않도록, React Testing Library의 render를 한번 감싼 테스트용 헬퍼 함수를 준비.
 
 ```tsx
-import { render as originalRender } from '@testing-library/react';
+import { render as originalRender } from "@testing-library/react";
 
-import React from 'react';
+import React from "react";
 
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from "react-router-dom";
 
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from "styled-components";
 
-import defaultTheme from './styles/defaultTheme';
+import defaultTheme from "./styles/defaultTheme";
 
 export function render(element: React.ReactElement) {
-  return originalRender((
-    <MemoryRouter initialEntries={['/']}>
-      <ThemeProvider theme={defaultTheme}>
-        {element}
-      </ThemeProvider>
+  return originalRender(
+    <MemoryRouter initialEntries={["/"]}>
+      <ThemeProvider theme={defaultTheme}>{element}</ThemeProvider>
     </MemoryRouter>
-  ));
+  );
 }
 ```
 
@@ -76,68 +74,68 @@ export function render(element: React.ReactElement) {
 
 ```js
 export type Category = {
-  id: string;
-  name: string;
-}
+  id: string,
+  name: string,
+};
 
 export type Image = {
-  url: string;
-}
+  url: string,
+};
 
 export type ProductSummary = {
-  id: string;
-  category: Category;
-  thumbnail: Image;
-  name: string;
-  price: number;
-}
+  id: string,
+  category: Category,
+  thumbnail: Image,
+  name: string,
+  price: number,
+};
 
 export type ProductOptionItem = {
-  id: string;
-  name: string;
+  id: string,
+  name: string,
 };
 
 export type ProductOption = {
-  id: string;
-  name: string;
-  items: ProductOptionItem[];
+  id: string,
+  name: string,
+  items: ProductOptionItem[],
 };
 
 export type ProductDetail = {
-  id: string;
-  category: Category;
-  images: Image[];
-  name: string;
-  price: number;
-  options: ProductOption[];
-  description: string;
-}
+  id: string,
+  category: Category,
+  images: Image[],
+  name: string,
+  price: number,
+  options: ProductOption[],
+  description: string,
+};
 
 export type OrderOptionItem = {
-  name: string;
+  name: string,
 };
 
 export type OrderOption = {
-  name: string;
-  item: OrderOptionItem;
+  name: string,
+  item: OrderOptionItem,
 };
 
 export type LineItem = {
-  id: string;
+  id: string,
   product: {
-    id: string;
-    name: string;
-  };
-  options: OrderOption[];
-  unitPrice: number;
-  quantity: number;
-  totalPrice: number;
-}
+    id: string,
+    name: string,
+  },
+  options: OrderOption[],
+  unitPrice: number,
+  quantity: number,
+  totalPrice: number,
+};
 
 export type Cart = {
-  lineItems: LineItem[];
-  totalPrice: number;
-}
+  lineItems: LineItem[],
+  totalPrice: number,
+};
 ```
 
 ## store에서의 관심사 분리
@@ -151,7 +149,6 @@ store에서 axios를 분리해낸다.
 apiService에서만 수정하면 된다.
 
 ```js
-
 // CategoriesStore.ts
 
 import axios from "axios";
@@ -176,13 +173,51 @@ export default class CategoriesStore {
     //스토어에서도 base_url읇 분리함으로써 관심사의 분리가 이뤄짐.
     // 저수준의 axios를 apiService에 숨겨줌.
 
-    const categories = await apiService.fetchCategories()
+    const categories = await apiService.fetchCategories();
     this.setCategories(categories);
   }
 
   @Action()
-  setCategories(categories:Category[]) {
+  setCategories(categories: Category[]) {
     this.categories = categories;
   }
 }
+```
+
+## curl을 이용해 임의로 장바구니에 상품 담기
+
+```js
+curl -X POST https://shop-demo-api-01.fly.dev/cart/line-items \
+  -H "Content-Type: application/json" \
+  --data '
+    {
+      "productId": "0BV000PRO0001",
+      "options": [
+        {
+          "id": "0BV000OPT0001",
+          "itemId": "0BV000ITEM001"
+        },
+        {
+          "id": "0BV000OPT0002",
+          "itemId": "0BV000ITEM005"
+        }
+      ],
+      "quantity": 1
+    }
+  '
+```
+
+get 요청
+
+```js
+
+curl https://shop-demo-api-01.fly.dev/cart
+```
+
+data reset
+
+```js
+// backdoor.ts 에 설정돼있음.
+http://shop-demo-api-01.fly.dev/backdoor/setup-database
+
 ```

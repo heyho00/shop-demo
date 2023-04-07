@@ -10,9 +10,9 @@ const [product] = fixtures.products
 
 // const {options} = product
 
-// jest.mock('../../hooks/useProductDetailStore', () => () => [
-//     {product},
-// ])
+jest.mock('../../hooks/useProductDetailStore', () => () => [
+    {product},
+])
 
 //jest.mock('../../hooks/useProductFormStore', ()=> () => [
     // {

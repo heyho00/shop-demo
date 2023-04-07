@@ -26,9 +26,6 @@ describe('Description',()=>{
             lines.forEach((line) => {
                 screen.getByText(line)
             })
-
-            const {container} = render(<Description value={text} />)
-            expect(container).toBeEmptyDOMElement()
         })
     })
 })
