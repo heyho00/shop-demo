@@ -23,7 +23,7 @@ describe('routes', () => {
       renderRouter('/');
 
       await waitFor(()=>{
-        screen.getByText(/top/);
+        screen.getByText('top');
       })
     });
   });

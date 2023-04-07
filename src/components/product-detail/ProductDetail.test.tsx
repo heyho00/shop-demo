@@ -8,11 +8,19 @@ import ProductDetail from './ProductDetail'
 
 const [product] = fixtures.products
 
-const {options} = product
+// const {options} = product
 
-jest.mock('../../hooks/useProductDetailStore', () => () => [
-    {product},
-])
+// jest.mock('../../hooks/useProductDetailStore', () => () => [
+//     {product},
+// ])
+
+//jest.mock('../../hooks/useProductFormStore', ()=> () => [
+    // {
+    //     options,
+    //     selectedOptionItems: urlToHttpOptions,map((i) => i.items[0]),
+    //     quantity: 1,
+    // }
+// ])
 
 test('ProductDetail',async ()=>{
     const store = container.resolve(ProductDetailStore)
