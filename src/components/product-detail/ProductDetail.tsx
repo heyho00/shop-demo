@@ -3,6 +3,7 @@ import useProductDetailStore from "../../hooks/useProductDetailStore";
 
 import Images from "./Images";
 import Description from "./Description";
+import AddToCartForm from "./form/AddToCartForm";
 
 const Container = styled.div`
   display: flex;
@@ -16,12 +17,6 @@ const Container = styled.div`
     width: 60%;
   }
 `;
-
-
-function AddToCartForm (){
-    return null
-}
-
 
 export default function ProductDetailView() {
   const [{ product }] = useProductDetailStore();
