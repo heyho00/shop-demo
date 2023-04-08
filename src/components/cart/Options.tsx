@@ -1,23 +1,25 @@
-import styled from "styled-components";
-import { OrderOption } from "../../types";
+import useProductFormStore from "../../hooks/useProductFormStore";
+import { ProductOption, ProductOptionItem } from "../../types";
+import { ChangeFunction } from "../product-detail/form/Options";
+import Option from "./Option";
 
-const Container = styled.div`
-  margin-top: 0.5rem;
-  font-size: 1.4rem;
-`;
+export default function Options() {
+  const [{ product, selectedOptionItems }, store] = useProductFormStore();
 
-type OptionsProps = {
-  options: OrderOption[];
-};
+  const handleChange: ChangeFunction = ({ optionId, optionItemId }) => {
+    store.changeOptionItem({ optionId, optionItemId });
+  };
 
-export default function Options({ options }: OptionsProps) {
-  if (!options.length) {
-    return null;
-  }
-
-  const text = options
-    .map((option) => `${option.name}: ${option.item.name}`)
-    .join(", ");
-
-  return <Container>({text})</Container>;
+  return (
+    <div>
+      {product.options.map((option, index) => (
+        <Option
+          key={option.id}
+          option={option}
+          selectedItem={selectedOptionItems[index]}
+          onChange={handleChange}
+        />
+      ))}
+    </div>
+  );
 }

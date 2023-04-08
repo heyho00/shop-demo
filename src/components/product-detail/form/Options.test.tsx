@@ -1,9 +1,7 @@
-import { render } from "../../test-helpers";
-
+import { screen, fireEvent } from "@testing-library/react";
+import { render } from "../../../test-helpers";
 import Options from "./Options";
-
-import fixtures from "../../../fixtures";
-import { fireEvent, screen } from "@testing-library/react";
+import fixtures from "../../../../fixtures";
 
 const [product] = fixtures.products;
 const { options } = product;
@@ -15,7 +13,7 @@ const store = {
   changeOptionItem: jest.fn(),
 };
 
-jest.mock("../../hooks/useProductFormStore", () => () => [store, store]);
+jest.mock("../../../hooks/useProductFormStore", () => () => [store, store]);
 
 const context = describe;
 
@@ -36,6 +34,7 @@ describe("Options", () => {
 
       const [option] = options;
       const [, item] = option.items;
+
       const [combobox] = screen.getAllByRole("combobox");
 
       fireEvent.change(combobox, {
