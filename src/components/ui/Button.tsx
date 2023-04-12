@@ -1,12 +1,21 @@
 import styled from "styled-components";
 
-const Button = styled.button.attrs({
-  type: "button",
-})`
-  border: 0.1rem solid #888;
+type ButtonProps = {
+  type?: "button" | "submit" | "reset";
+};
+
+const Button = styled.button.attrs<ButtonProps>((props) => ({
+  type: props.type ?? "button",
+}))`
+  border: 0.1rem solid ${(props) => props.theme.colors.primary};
   background: transparent;
   color: ${(props) => props.theme.colors.primary};
   cursor: pointer;
+
+  :disabled {
+    filter: grayscale(80%);
+    cursor: not-allowed;
+  }
 `;
 
 export default Button;
