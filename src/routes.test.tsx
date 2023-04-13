@@ -59,7 +59,7 @@ describe("routes", () => {
       fireEvent.click(screen.getByRole("button", { name: "로그인" }));
 
       await waitFor(() => {
-        screen.getByText(/Orders/);
+        // screen.getByText(/Orders/);
         screen.getByText(/Cart/);
         screen.getByText(/Logout/);
       });

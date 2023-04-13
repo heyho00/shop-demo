@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import useFetchCategories from "../hooks/useFetchCategories";
+import useAccessToken from "../hooks/useAccessToken";
+import Button from "./ui/Button";
 
 const Container = styled.header`
   margin-bottom: 2rem;
@@ -21,12 +23,20 @@ const Container = styled.header`
     }
 
     .active {
-      color: ${(props) => props.theme.colors.primary}
+      color: ${(props) => props.theme.colors.primary};
     }
   }
 `;
+
 export default function Header() {
+  const { accessToken } = useAccessToken();
+
   const { categories } = useFetchCategories();
+
+  const handleClickLogout = async () => {
+    // setAccessToken('')
+    // navigate('/')
+  };
 
   return (
     <Container>
@@ -50,9 +60,20 @@ export default function Header() {
               </ul>
             )}
           </li>
-          <li>
-            <Link to="/cart">Cart</Link>
-          </li>
+          {accessToken ? (
+            <>
+              <li>
+                <Link to="/cart">Cart</Link>
+              </li>
+              <li>
+                <Button onClick={handleClickLogout}>Logout</Button>
+              </li>
+            </>
+          ) : (
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          )}
         </ul>
       </nav>
     </Container>

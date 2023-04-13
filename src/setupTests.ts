@@ -1,6 +1,8 @@
-import "reflect-metadata"
+import "@testing-library/jest-dom";
+import "whatwg-fetch";
+import "reflect-metadata";
 
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: jest.fn().mockImplementation((query) => ({
     matches: false,
