@@ -1,8 +1,8 @@
 Feature("Log in");
 
-Before(({ backdoor }) => {
-  backdoor.setupDatabase();
-});
+// Before(({ backdoor }) => {
+//   backdoor.setupDatabase();
+// });
 
 Scenario("Login success", ({ I }) => {
   I.amOnPage("/");

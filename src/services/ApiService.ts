@@ -9,6 +9,23 @@ export default class ApiService {
     baseURL: API_BASE_URL,
   });
 
+  private accessToken = "";
+
+  setAccessToken(accessToken: string) {
+    if (accessToken === this.accessToken) {
+      return;
+    }
+
+    const authorization = accessToken ? `Bearer ${accessToken}` : undefined;
+
+    this.instance = axios.create({
+      baseURL: API_BASE_URL,
+      headers: { Authorization: authorization },
+    });
+
+    this.accessToken = accessToken;
+  }
+
   async login({
     email,
     password,
@@ -69,6 +86,19 @@ export default class ApiService {
       options,
       quantity,
     });
+  }
+
+  async fetchCurrentUser(): Promise<{
+    id: string;
+    name: string;
+  }> {
+    const { data } = await this.instance.get("/users/me");
+    const { id, name } = data;
+    return { id, name };
+  }
+
+  async logout(): Promise<void> {
+    await this.instance.delete("/session");
   }
 }
 
