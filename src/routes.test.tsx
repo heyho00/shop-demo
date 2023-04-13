@@ -65,4 +65,48 @@ describe("routes", () => {
       });
     });
   });
+
+  context("when the current path is “/signup", () => {
+    it("renders the signup page", async () => {
+      renderRouter("/signup");
+
+      screen.getByRole("heading", { name: "회원 가입" });
+
+      await waitFor(() => {
+        screen.getByText(/Category #1/);
+      });
+
+      fireEvent.change(screen.getByLabelText("E-mail"), {
+        target: { value: "newbie@example.com" },
+      });
+
+      fireEvent.change(screen.getByLabelText("Name"), {
+        target: { value: "Newbie" },
+      });
+
+      ["Password", "Password Confirmation"].forEach((label) => {
+        fireEvent.change(screen.getByLabelText(label), {
+          target: { value: "password" },
+        });
+      });
+
+      fireEvent.click(screen.getByRole("button", { name: "회원 가입" }));
+
+      await waitFor(() => {
+        screen.getByText(/회원 가입이 완료되었습니다/);
+      });
+    });
+  });
+
+  context("when the current path is “/signup/complete", () => {
+    it("renders the signup complete page", async () => {
+      renderRouter("/signup/complete");
+
+      screen.getByText(/회원 가입이 완료되었습니다/);
+
+      await waitFor(() => {
+        screen.getByText(/Category #1/);
+      });
+    });
+  });
 });
