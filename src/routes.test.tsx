@@ -59,7 +59,7 @@ describe("routes", () => {
       fireEvent.click(screen.getByRole("button", { name: "로그인" }));
 
       await waitFor(() => {
-        // screen.getByText(/Orders/);
+        screen.getByText(/Orders/);
         screen.getByText(/Cart/);
         screen.getByText(/Logout/);
       });
@@ -106,6 +106,16 @@ describe("routes", () => {
 
       await waitFor(() => {
         screen.getByText(/Category #1/);
+      });
+    });
+  });
+
+  context("when the current path is “/orders", () => {
+    it("renders the order list page", async () => {
+      renderRouter("/orders");
+
+      await waitFor(() => {
+        screen.getByText(/결제 금액/);
       });
     });
   });

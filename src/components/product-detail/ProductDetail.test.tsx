@@ -21,9 +21,9 @@ jest.mock("../../hooks/useProductDetailStore", () => () => [{ product }]);
 // ])
 
 test("ProductDetail", async () => {
-  const store = container.resolve(ProductDetailStore);
+  // const store = container.resolve(ProductDetailStore);
 
-  await store.fetchProduct({ productId: product.id });
+  // await store.fetchProduct({ productId: product.id });
   render(<ProductDetail />);
 
   screen.getByText(product.name);

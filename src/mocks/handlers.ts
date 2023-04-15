@@ -16,7 +16,7 @@ const productSummaries: ProductSummary[] = fixtures.products.map(
   }) => ({
     id: product.id,
     category: product.category,
-    thumbnail: { url: product.images[0] },
+    thumbnail: product.images[0],
     name: product.name,
     price: product.price,
   })

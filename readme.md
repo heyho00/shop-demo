@@ -70,7 +70,9 @@ export function render(element: React.ReactElement) {
 
 ## Types
 
-기본적인 타입을 준비한다. 특별한 경우가 아니라면 미리 정한 용어집과 REST API 스펙에 맞추게 된다.
+기본적인 타입을 준비한다.
+
+특별한 경우가 아니라면 미리 정한 용어집과 REST API 스펙에 맞추게 된다.
 
 ```js
 export type Category = {
@@ -136,6 +138,61 @@ export type Cart = {
   lineItems: LineItem[],
   totalPrice: number,
 };
+```
+
+## MSW 세팅
+
+Rest api 스펙에 맞춰 MSW 핸들러를 준비한다.
+
+```js
+import { rest } from "msw";
+
+import { ProductSummary } from "../types";
+
+import fixtures from "../../fixtures";
+
+const BASE_URL = "https://shop-demo-api-02.fly.dev";
+
+const productSummaries: ProductSummary[] = fixtures.products.map(
+  (product: {
+    id: any;
+    category: any;
+    images: any[];
+    name: any;
+    price: any;
+  }) => ({
+    id: product.id,
+    category: product.category,
+    thumbnail: { url: product.images[0] },
+    name: product.name,
+    price: product.price,
+  })
+);
+
+const handlers = [
+  rest.get(`${BASE_URL}/categories`, (req, res, ctx) =>
+    res(ctx.json({ categories: fixtures.categories }))
+  ),
+  rest.get(`${BASE_URL}/products`, (req, res, ctx) =>
+    res(ctx.json({ products: productSummaries }))
+  ),
+  rest.get(`${BASE_URL}/products/:id`, (req, res, ctx) => {
+    const product = fixtures.products.find(
+      (i: { id: string | readonly string[] }) => i.id === req.params.id
+    );
+    if (!product) {
+      return res(ctx.status(404));
+    }
+    return res(ctx.json(product));
+  }),
+  rest.get(`${BASE_URL}/cart`, (req, res, ctx) => res(ctx.json(fixtures.cart))),
+  rest.post(`${BASE_URL}/cart/line-items`, (req, res, ctx) =>
+    res(ctx.status(201))
+  ),
+];
+
+export default handlers;
+
 ```
 
 ## store에서의 관심사 분리

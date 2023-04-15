@@ -13,9 +13,7 @@ export default class ProductDetailStore {
 
   error = false;
 
-  async fetchProduct({ productId }: {
-    productId: string;
-  }) {
+  async fetchProduct({ productId }: { productId: string }) {
     this.startLoading();
 
     try {

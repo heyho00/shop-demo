@@ -3,7 +3,7 @@ import { ProductSummary } from "../../types";
 import numberFormat from "../../utils/numberFormat";
 
 const Thumbnail = styled.img.attrs({
-  alt: 'Thumbnail',
+  alt: "Thumbnail",
 })`
   display: block;
   width: 100%;
@@ -11,22 +11,20 @@ const Thumbnail = styled.img.attrs({
 `;
 
 const Container = styled.div`
-  word-break:keep-all;
+  word-break: keep-all;
 `;
 
 type ProductProps = {
   product: ProductSummary;
-}
+};
 
 export default function Product({ product }: ProductProps) {
+  const { thumbnail, name, price } = product;
   return (
     <Container>
-      <Thumbnail src={product.thumbnail.url} />
-      <div>{product.name}</div>
-      <div>
-        {numberFormat(product.price)}
-        원
-      </div>
+      <Thumbnail src={thumbnail.url} />
+      <div>{name}</div>
+      <div>{numberFormat(price)}원</div>
     </Container>
   );
 }
