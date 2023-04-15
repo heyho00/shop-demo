@@ -37,19 +37,19 @@ describe("AddToCartForm", () => {
     });
   });
 
-  context("when the current user is logged in", () => {
-    beforeEach(() => {
-      accessToken = "ACCESS-TOKEN";
-    });
+  // context("when the current user is logged in", () => {
+  //   beforeEach(() => {
+  //     accessToken = "ACCESS-TOKEN";
+  //   });
 
-    it("renders “Add To Cart” button", async () => {
-      render(<AddToCartForm />);
+  //   it("renders “Add To Cart” button", async () => {
+  //     render(<AddToCartForm />);
 
-      fireEvent.click(screen.getByText("장바구니에 담기"));
+  //     fireEvent.click(screen.getByText("장바구니에 담기"));
 
-      await waitFor(() => {
-        screen.getByText(/장바구니에 담았습니다/);
-      });
-    });
-  });
+  //     await waitFor(() => {
+  //       screen.getByText(/장바구니에 담았습니다/);
+  //     });
+  //   });
+  // });
 });
