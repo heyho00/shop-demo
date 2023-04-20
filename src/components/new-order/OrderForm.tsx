@@ -2,8 +2,8 @@ import styled from "styled-components";
 import { Cart } from "../../types";
 
 import Table from "../line-item/Table";
-import Button from "../ui/Button";
 import ShippingForm from "./ShippingForm";
+import PaymentButton from "./PaymentButton";
 
 const Container = styled.div`
   h2 {
@@ -22,7 +22,7 @@ export default function OrderForm({ cart }: OrderFormProps) {
 
       <ShippingForm />
 
-      <Button onClick={() => {}}>결제</Button>
+      <PaymentButton cart={cart} />
     </Container>
   );
 }

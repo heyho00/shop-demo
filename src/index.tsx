@@ -1,20 +1,22 @@
-import 'reflect-metadata'
+import "reflect-metadata";
 
-import React, { StrictMode } from 'react';
-import ReactDOM from 'react-dom/client';
+import React, { StrictMode } from "react";
+import ReactDOM from "react-dom/client";
 
-import { Reset } from 'styled-reset';
-import { ThemeProvider } from 'styled-components';
-import defaultTheme from './styles/defaultTheme';
-import GlobalStyle from './styles/GlobalStyle';
+import { Reset } from "styled-reset";
+import { ThemeProvider } from "styled-components";
+import defaultTheme from "./styles/defaultTheme";
+import GlobalStyle from "./styles/GlobalStyle";
 
-import routes from './routes';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import routes from "./routes";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-const router = createBrowserRouter(routes)
+const router = createBrowserRouter(routes);
 
 function index() {
-  const element = document.getElementById('root');
+  Reflect.get(window, "IMP").init(process.env.PORTONE_IMP);
+
+  const element = document.getElementById("root");
   if (!element) {
     return;
   }
@@ -29,7 +31,7 @@ function index() {
 
         <RouterProvider router={router} />
       </ThemeProvider>
-    </StrictMode>,
+    </StrictMode>
   );
 }
 
