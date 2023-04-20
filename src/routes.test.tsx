@@ -38,33 +38,33 @@ describe("routes", () => {
   //   });
   // });
 
-  // context("when the current path is “/login", () => {
-  //   it("renders the login page", async () => {
-  //     renderRouter("/login");
+  context("when the current path is “/login", () => {
+    it("renders the login page", async () => {
+      renderRouter("/login");
 
-  //     screen.getByRole("heading", { name: "로그인" });
+      screen.getByRole("heading", { name: "로그인" });
 
-  //     await waitFor(() => {
-  //       screen.getByText(/Category #1/);
-  //     });
+      // await waitFor(() => {
+      //   screen.getByText(/Category #1/);
+      // });
 
-  //     fireEvent.change(screen.getByLabelText("E-mail"), {
-  //       target: { value: "newbie@example.com" },
-  //     });
+      fireEvent.change(screen.getByLabelText("E-mail"), {
+        target: { value: "tester@example.com" },
+      });
 
-  //     fireEvent.change(screen.getByLabelText("Password"), {
-  //       target: { value: "password" },
-  //     });
+      fireEvent.change(screen.getByLabelText("Password"), {
+        target: { value: "password" },
+      });
 
-  //     fireEvent.click(screen.getByRole("button", { name: "로그인" }));
+      fireEvent.click(screen.getByRole("button", { name: "로그인" }));
 
-  //     await waitFor(() => {
-  //       screen.getByText(/Orders/);
-  //       screen.getByText(/Cart/);
-  //       screen.getByText(/Logout/);
-  //     });
-  //   });
-  // });
+      await waitFor(() => {
+        screen.getByText(/Orders/);
+        screen.getByText(/Cart/);
+        screen.getByText(/Logout/);
+      });
+    });
+  });
 
   // context("when the current path is “/signup", () => {
   //   it("renders the signup page", async () => {
