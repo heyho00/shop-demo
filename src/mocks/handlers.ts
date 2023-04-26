@@ -3,6 +3,7 @@ import { rest } from "msw";
 import { ProductSummary } from "../types";
 
 import fixtures from "../../fixtures";
+import orders from "../../fixtures/orders";
 
 const BASE_URL = "https://shop-demo-api-02.fly.dev";
 
@@ -42,6 +43,15 @@ const handlers = [
   rest.post(`${BASE_URL}/cart/line-items`, (req, res, ctx) =>
     res(ctx.status(201))
   ),
+  rest.get(`${BASE_URL}/orders`, (req, res, ctx) => res(ctx.json({ orders }))),
+  rest.get(`${BASE_URL}/orders/:id`, (req, res, ctx) => {
+    const order = fixtures.orders.lineItems.find((i) => i.id === req.params.id);
+    if (!order) {
+      return res(ctx.status(404));
+    }
+    return res(ctx.json(order));
+  }),
+  rest.post(`${BASE_URL}/orders`, (req, res, ctx) => res(ctx.status(201))),
 ];
 
 export default handlers;
